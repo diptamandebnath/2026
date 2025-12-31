@@ -1,25 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>New Year 2026 Countdown</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy New Year 2026</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root {
-    --bg: radial-gradient(circle at top, #1f2933, #0b0f14);
-    --card: rgba(255,255,255,0.07);
-    --text: #ffffff;
-}
-
-.light {
-    --bg: linear-gradient(135deg, #e0e7ff, #ffffff);
-    --card: rgba(0,0,0,0.05);
-    --text: #111;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -27,192 +15,149 @@
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Poppins', sans-serif;
     min-height: 100vh;
+    background: linear-gradient(120deg,
+        #ff512f,
+        #f09819,
+        #fbc531,
+        #e84393,
+        #6c5ce7
+    );
+    background-size: 300% 300%;
+    animation: gradientMove 8s ease infinite;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: 0.4s;
+    color: #222;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 .container {
-    max-width: 520px;
-    width: 100%;
-    background: var(--card);
-    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.9);
     border-radius: 18px;
-    padding: 34px;
+    padding: 30px 28px;
+    width: 100%;
+    max-width: 420px;
     text-align: center;
-    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+    box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+}
+
+.badge {
+    background: #f39c12;
+    color: #fff;
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    margin-bottom: 18px;
 }
 
 h1 {
-    font-size: 2.3rem;
-    font-weight: 700;
-}
-
-.subtitle {
-    opacity: 0.8;
-    margin: 8px 0 24px;
-}
-
-.timer {
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 12px;
-    margin-bottom: 22px;
-}
-
-.box {
-    background: rgba(255,255,255,0.12);
-    padding: 16px;
-    border-radius: 14px;
-}
-
-.box span {
     font-size: 1.9rem;
+    margin-bottom: 18px;
+}
+
+label {
+    font-size: 0.85rem;
     font-weight: 600;
+    display: block;
+    margin: 12px 0 6px;
 }
 
-.box small {
-    font-size: 0.75rem;
-    opacity: 0.8;
-    letter-spacing: 1px;
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #ff7675;
+    outline: none;
+    font-size: 0.95rem;
 }
 
-/* Feature Controls */
-.features {
-    display: flex;
-    justify-content: space-between;
-    margin: 18px 0 26px;
-    font-size: 0.9rem;
+input::placeholder {
+    color: #777;
 }
 
-.features button {
-    background: none;
-    border: 1px solid rgba(255,255,255,0.3);
-    color: var(--text);
-    padding: 8px 14px;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
-.share a {
-    display: inline-block;
-    margin: 6px;
-    padding: 10px 18px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 0.9rem;
+button {
+    margin-top: 18px;
+    padding: 12px 26px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(90deg, #ff7675, #fd79a8);
     color: #fff;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
-.fb { background: #1877F2; }
-.tw { background: #1DA1F2; }
-.in { background: #0077B5; }
-.wa { background: #25D366; }
+button:hover {
+    opacity: 0.9;
+}
 
-canvas {
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
+.greeting {
+    margin-top: 20px;
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #2d3436;
 }
 
 footer {
     margin-top: 20px;
-    font-size: 0.8rem;
-    opacity: 0.6;
+    font-size: 0.75rem;
+    color: #555;
 }
 </style>
 </head>
 
 <body>
-<canvas id="fireworks"></canvas>
 
 <div class="container">
-    <h1>New Year 2026</h1>
-    <p class="subtitle">Celebration begins in your local time</p>
+    <div class="badge">🎉 New Year is Here!</div>
 
-    <div class="timer" id="timer">
-        <div class="box"><span id="d">0</span><small>DAYS</small></div>
-        <div class="box"><span id="h">0</span><small>HOURS</small></div>
-        <div class="box"><span id="m">0</span><small>MIN</small></div>
-        <div class="box"><span id="s">0</span><small>SEC</small></div>
-    </div>
+    <h1>Happy New Year 2026 🎆</h1>
 
-    <!-- REAL FEATURES -->
-    <div class="features">
-        <button onclick="toggleTheme()">🌓 Theme</button>
-        <button onclick="toggleSound()">🔊 Sound</button>
-        <span>🌍 Auto Timezone</span>
-    </div>
+    <label>Enter Your Name</label>
+    <input id="fromName" placeholder="Leave blank for anonymous">
 
-    <div class="share">
-        <a class="fb" href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">Facebook</a>
-        <a class="tw" href="https://twitter.com/intent/tweet?text=New%20Year%202026%20Countdown!&url=https://example.com" target="_blank">Twitter</a>
-        <a class="in" href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com" target="_blank">LinkedIn</a>
-        <a class="wa" href="#" onclick="shareWhatsApp()">WhatsApp</a>
-    </div>
+    <label>Enter Special One's Name</label>
+    <input id="toName" placeholder="Leave blank for everyone">
 
-    <footer>© 2026 Countdown • Premium Experience</footer>
+    <button onclick="generateGreeting()">Generate Greeting</button>
+
+    <div class="greeting" id="greeting"></div>
+
+    <footer>
+        Developed & Maintained by You
+    </footer>
 </div>
 
 <script>
-let soundOn = true;
-const pop = new Audio("https://www.soundjay.com/misc/sounds/firework-pop-1.mp3");
+function generateGreeting() {
+    const from = document.getElementById("fromName").value.trim();
+    const to = document.getElementById("toName").value.trim();
 
-function updateCountdown() {
-    const target = new Date("January 1, 2026 00:00:00").getTime();
-    const now = new Date().getTime();
-    const diff = target - now;
+    let message = "🎆 Wishing you a very Happy New Year 2026! 🎆<br>";
 
-    if (diff <= 0) {
-        document.getElementById("timer").innerHTML =
-            "<h2>🎉 Happy New Year 2026!</h2>";
-        startFireworks();
-        if (soundOn) pop.play();
-        return;
+    if (to) {
+        message += `<strong>${to}</strong>, may this year bring you happiness, success, and good health. 🌟<br>`;
+    } else {
+        message += "May this year bring happiness, success, and good health to you and your family. 🌟<br>";
     }
 
-    d.innerText = Math.floor(diff / (1000*60*60*24));
-    h.innerText = Math.floor((diff / (1000*60*60)) % 24);
-    m.innerText = Math.floor((diff / (1000*60)) % 60);
-    s.innerText = Math.floor((diff / 1000) % 60);
+    if (from) {
+        message += `<br>— Best wishes from <strong>${from}</strong> 💖`;
+    }
+
+    document.getElementById("greeting").innerHTML = message;
 }
-
-function toggleTheme() {
-    document.body.classList.toggle("light");
-}
-
-function toggleSound() {
-    soundOn = !soundOn;
-    alert(soundOn ? "Sound ON" : "Sound OFF");
-}
-
-function shareWhatsApp() {
-    const text = encodeURIComponent("🎉 New Year 2026 Countdown!\n" + location.href);
-    window.open("https://wa.me/?text=" + text);
-}
-
-/* Simple Fireworks */
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-canvas.width = innerWidth;
-canvas.height = innerHeight;
-
-function startFireworks() {
-    setInterval(() => {
-        ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
-        ctx.beginPath();
-        ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 3, 0, Math.PI*2);
-        ctx.fill();
-    }, 30);
-}
-
-updateCountdown();
-setInterval(updateCountdown, 1000);
 </script>
+
 </body>
 </html>
