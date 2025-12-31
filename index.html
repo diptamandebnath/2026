@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Year's Countdown</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #0f0f23, #1a1a2e);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 50px;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        .countdown {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .count-item {
+            font-size: 1.5em;
+            padding: 10px;
+            background: rgba(255, 215, 0, 0.2);
+            border-radius: 10px;
+            animation: tick 1s infinite alternate;
+        }
+        @keyframes tick {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        .final-message {
+            font-size: 2em;
+            margin-top: 30px;
+            color: #ffd700;
+            animation: fadeIn 2s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 0.8em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <h1>Happy New Year Countdown!</h1>
+    <div class="countdown">
+        <div class="count-item">10... As the clock ticks down, here's to new beginnings and endless possibilities!</div>
+        <div class="count-item">9... May your year be filled with laughter, love, and unforgettable adventures.</div>
+        <div class="count-item">8... Cheers to leaving the old behind and embracing fresh starts.</div>
+        <div class="count-item">7... Wishing you health, happiness, and prosperity in the year ahead.</div>
+        <div class="count-item">6... Let's count down to a brighter tomorrow together!</div>
+        <div class="count-item">5... Dreams to chase, goals to achieve, and memories to make.</div>
+        <div class="count-item">4... Gratitude for the past, excitement for the future.</div>
+        <div class="count-item">3... One step closer to ringing in the new!</div>
+        <div class="count-item">2... Get ready for fireworks, fun, and fabulous times.</div>
+        <div class="count-item">1... Happy New Year! 🎉 Here's to you and all the magic 2024 brings! 🥂</div>
+    </div>
+    <div class="final-message">Wishing you a year full of joy and success!</div>
+    <footer>* Customize this for your own celebrations!</footer>
+</body>
+</html>
