@@ -26,38 +26,38 @@ body {
 
 .container {
     width: 100%;
-    max-width: 520px;
+    max-width: 540px;
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(14px);
-    border-radius: 18px;
-    padding: 35px 30px;
+    border-radius: 20px;
+    padding: 38px 32px;
     text-align: center;
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
 }
 
 h1 {
-    font-size: 2.2rem;
+    font-size: 2.3rem;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 
 .subtitle {
     font-size: 1rem;
     opacity: 0.85;
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 .timer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 32px;
 }
 
 .time-box {
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: 12px;
-    padding: 15px 10px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+    border-radius: 14px;
+    padding: 16px 10px;
 }
 
 .time-box span {
@@ -67,28 +67,46 @@ h1 {
 }
 
 .time-box small {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     opacity: 0.8;
     letter-spacing: 1px;
 }
 
-.message-area {
-    margin-top: 20px;
+/* Amazing Feature Section */
+.features {
+    margin: 28px 0 34px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
 }
 
-.message-area textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    resize: none;
+.feature {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 16px;
+    text-align: left;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.feature:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.18);
+}
+
+.feature h3 {
     font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.feature p {
+    font-size: 0.8rem;
+    opacity: 0.85;
+    line-height: 1.4;
 }
 
 .share {
-    margin-top: 25px;
+    margin-top: 22px;
 }
 
 .share a {
@@ -114,7 +132,7 @@ h1 {
 .wa { background: #25D366; }
 
 footer {
-    margin-top: 25px;
+    margin-top: 26px;
     font-size: 0.8rem;
     opacity: 0.65;
 }
@@ -124,7 +142,7 @@ footer {
 <body>
 <div class="container">
     <h1>New Year 2026</h1>
-    <p class="subtitle">Countdown to a brand new beginning</p>
+    <p class="subtitle">A fresh start begins in</p>
 
     <div class="timer" id="timer">
         <div class="time-box">
@@ -145,8 +163,24 @@ footer {
         </div>
     </div>
 
-    <div class="message-area">
-        <textarea id="message" rows="3" placeholder="Write your New Year message..."></textarea>
+    <!-- Amazing Features -->
+    <div class="features">
+        <div class="feature">
+            <h3>🎆 Live Countdown</h3>
+            <p>Accurate real-time countdown updated every second.</p>
+        </div>
+        <div class="feature">
+            <h3>🚀 Ultra Fast</h3>
+            <p>Optimized performance with zero page reloads.</p>
+        </div>
+        <div class="feature">
+            <h3>📱 Mobile Ready</h3>
+            <p>Looks perfect on phones, tablets, and desktops.</p>
+        </div>
+        <div class="feature">
+            <h3>🔒 Privacy First</h3>
+            <p>No tracking, no data storage, 100% safe.</p>
+        </div>
     </div>
 
     <div class="share">
@@ -157,7 +191,7 @@ footer {
     </div>
 
     <footer>
-        © 2026 Countdown • Crafted with precision
+        © 2026 Countdown • Designed for celebration
     </footer>
 </div>
 
@@ -184,13 +218,9 @@ function updateCountdown() {
 }
 
 function shareWhatsApp() {
-    const message =
-        document.getElementById("message").value ||
-        "🎉 Countdown to New Year 2026!";
-
-    const url = window.location.href;
-    const text = encodeURIComponent(`${message}\n\n${url}`);
-
+    const text = encodeURIComponent(
+        "🎉 Countdown to New Year 2026!\n\n" + window.location.href
+    );
     window.open(`https://wa.me/?text=${text}`, "_blank");
 }
 
