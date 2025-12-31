@@ -44,14 +44,14 @@ h1 {
 .subtitle {
     font-size: 1rem;
     opacity: 0.85;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .timer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 12px;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
 }
 
 .time-box {
@@ -72,35 +72,44 @@ h1 {
     letter-spacing: 1px;
 }
 
-.message-area {
+/* AI Feature Box */
+.ai-box {
+    background: linear-gradient(135deg, #6366f1, #22c55e);
+    border-radius: 14px;
+    padding: 18px;
     margin-top: 20px;
 }
 
-.message-area textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-family: inherit;
-    resize: none;
-    font-size: 0.95rem;
+.ai-box h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
 }
 
-/* Sound Button */
-.sound-btn {
-    margin-top: 15px;
-    padding: 8px 16px;
-    border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.3);
-    background: transparent;
+.ai-text {
+    font-size: 0.95rem;
+    background: rgba(0,0,0,0.25);
+    padding: 12px;
+    border-radius: 10px;
+    min-height: 60px;
+}
+
+.ai-btn {
+    margin-top: 12px;
+    background: #000;
     color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.9rem;
+}
+
+.ai-btn:hover {
+    opacity: 0.85;
 }
 
 .share {
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
 .share a {
@@ -112,17 +121,8 @@ h1 {
     font-size: 0.9rem;
     font-weight: 500;
     color: #fff;
-    transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
-.share a:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
-}
-
-.fb { background: #1877F2; }
-.tw { background: #1DA1F2; }
-.in { background: #0077B5; }
 .wa { background: #25D366; }
 
 footer {
@@ -134,15 +134,9 @@ footer {
 </head>
 
 <body>
-
-<!-- Background Audio -->
-<audio id="bgMusic" loop>
-    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-</audio>
-
 <div class="container">
     <h1>New Year 2026</h1>
-    <p class="subtitle">Countdown to a brand new beginning</p>
+    <p class="subtitle">Countdown to a smarter beginning ✨</p>
 
     <div class="timer" id="timer">
         <div class="time-box"><span id="days">0</span><small>DAYS</small></div>
@@ -151,43 +145,25 @@ footer {
         <div class="time-box"><span id="seconds">0</span><small>SECONDS</small></div>
     </div>
 
-    <div class="message-area">
-        <textarea id="message" rows="3" placeholder="Write your New Year message..."></textarea>
+    <!-- AI Feature -->
+    <div class="ai-box">
+        <h3>🤖 AI New Year Wish</h3>
+        <div class="ai-text" id="aiMessage">
+            Click generate to create a smart New Year wish ✨
+        </div>
+        <button class="ai-btn" onclick="generateAIWish()">Generate AI Wish</button>
     </div>
-
-    <button class="sound-btn" onclick="toggleSound()">🔊 Sound ON / OFF</button>
 
     <div class="share">
-        <a class="fb" href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">Facebook</a>
-        <a class="tw" href="https://twitter.com/intent/tweet?text=Countdown%20to%20New%20Year%202026!&url=https://example.com" target="_blank">Twitter</a>
-        <a class="in" href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com" target="_blank">LinkedIn</a>
-        <a class="wa" href="#" onclick="shareWhatsApp()">WhatsApp</a>
+        <a class="wa" href="#" onclick="shareWhatsApp()">Share on WhatsApp</a>
     </div>
 
-    <footer>© 2026 Countdown • Crafted with precision</footer>
+    <footer>
+        © 2026 Countdown • AI Enhanced
+    </footer>
 </div>
 
 <script>
-const bgMusic = document.getElementById("bgMusic");
-let isPlaying = false;
-
-// Play music after first click anywhere
-document.body.addEventListener("click", () => {
-    if (!isPlaying) {
-        bgMusic.volume = 0.4;
-        bgMusic.play();
-        isPlaying = true;
-    }
-}, { once: true });
-
-function toggleSound() {
-    if (bgMusic.paused) {
-        bgMusic.play();
-    } else {
-        bgMusic.pause();
-    }
-}
-
 function updateCountdown() {
     const target = new Date("January 1, 2026 00:00:00").getTime();
     const now = new Date().getTime();
@@ -205,15 +181,38 @@ function updateCountdown() {
     seconds.innerText = Math.floor((diff / 1000) % 60);
 }
 
+function generateAIWish() {
+    const hour = new Date().getHours();
+    const tone = hour < 12 ? "bright" : hour < 18 ? "energetic" : "calm";
+
+    const wishes = {
+        bright: [
+            "🌅 A fresh morning, a fresh year! May 2026 bring success, health, and happiness.",
+            "✨ New sunrise, new hopes. Welcome 2026 with positivity and dreams!"
+        ],
+        energetic: [
+            "🚀 2026 is your year to grow, hustle, and shine brighter than ever!",
+            "🔥 New goals, new energy, new achievements — Happy New Year 2026!"
+        ],
+        calm: [
+            "🌙 As the year turns, may peace, balance, and joy follow you in 2026.",
+            "💫 A quiet wish for a powerful year ahead. Happy New Year 2026!"
+        ]
+    };
+
+    const msg = wishes[tone][Math.floor(Math.random() * wishes[tone].length)];
+    document.getElementById("aiMessage").innerText = msg;
+}
+
 function shareWhatsApp() {
-    const message = document.getElementById("message").value || "🎉 Countdown to New Year 2026!";
-    const text = encodeURIComponent(message + "\n\n" + location.href);
-    window.open("https://wa.me/?text=" + text, "_blank");
+    const msg = document.getElementById("aiMessage").innerText;
+    const url = window.location.href;
+    const text = encodeURIComponent(`${msg}\n\n${url}`);
+    window.open(`https://wa.me/?text=${text}`, "_blank");
 }
 
 updateCountdown();
 setInterval(updateCountdown, 1000);
 </script>
-
 </body>
 </html>
