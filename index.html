@@ -8,6 +8,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+    --bg: radial-gradient(circle at top, #1f2933, #0b0f14);
+    --card: rgba(255,255,255,0.07);
+    --text: #ffffff;
+}
+
+.light {
+    --bg: linear-gradient(135deg, #e0e7ff, #ffffff);
+    --card: rgba(0,0,0,0.05);
+    --text: #111;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -16,97 +28,75 @@
 
 body {
     font-family: 'Inter', sans-serif;
-    background: radial-gradient(circle at top, #1f2933, #0b0f14);
-    color: #ffffff;
+    background: var(--bg);
+    color: var(--text);
     min-height: 100vh;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    transition: 0.4s;
 }
 
 .container {
+    max-width: 520px;
     width: 100%;
-    max-width: 540px;
-    background: rgba(255, 255, 255, 0.06);
+    background: var(--card);
     backdrop-filter: blur(14px);
-    border-radius: 20px;
-    padding: 38px 32px;
+    border-radius: 18px;
+    padding: 34px;
     text-align: center;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
 }
 
 h1 {
     font-size: 2.3rem;
     font-weight: 700;
-    margin-bottom: 8px;
 }
 
 .subtitle {
-    font-size: 1rem;
-    opacity: 0.85;
-    margin-bottom: 28px;
+    opacity: 0.8;
+    margin: 8px 0 24px;
 }
 
 .timer {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 12px;
-    margin-bottom: 32px;
+    margin-bottom: 22px;
 }
 
-.time-box {
-    background: linear-gradient(180deg, rgba(255,255,255,0.18), rgba(255,255,255,0.08));
+.box {
+    background: rgba(255,255,255,0.12);
+    padding: 16px;
     border-radius: 14px;
-    padding: 16px 10px;
 }
 
-.time-box span {
-    display: block;
+.box span {
     font-size: 1.9rem;
     font-weight: 600;
 }
 
-.time-box small {
-    font-size: 0.72rem;
+.box small {
+    font-size: 0.75rem;
     opacity: 0.8;
     letter-spacing: 1px;
 }
 
-/* Amazing Feature Section */
+/* Feature Controls */
 .features {
-    margin: 28px 0 34px;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    display: flex;
+    justify-content: space-between;
+    margin: 18px 0 26px;
+    font-size: 0.9rem;
 }
 
-.feature {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 14px;
-    padding: 16px;
-    text-align: left;
-    transition: transform 0.3s ease, background 0.3s ease;
-}
-
-.feature:hover {
-    transform: translateY(-4px);
-    background: rgba(255, 255, 255, 0.18);
-}
-
-.feature h3 {
-    font-size: 0.95rem;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-.feature p {
-    font-size: 0.8rem;
-    opacity: 0.85;
-    line-height: 1.4;
-}
-
-.share {
-    margin-top: 22px;
+.features button {
+    background: none;
+    border: 1px solid rgba(255,255,255,0.3);
+    color: var(--text);
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
 }
 
 .share a {
@@ -116,14 +106,7 @@ h1 {
     border-radius: 6px;
     text-decoration: none;
     font-size: 0.9rem;
-    font-weight: 500;
     color: #fff;
-    transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.share a:hover {
-    transform: translateY(-2px);
-    opacity: 0.9;
 }
 
 .fb { background: #1877F2; }
@@ -131,71 +114,55 @@ h1 {
 .in { background: #0077B5; }
 .wa { background: #25D366; }
 
+canvas {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+}
+
 footer {
-    margin-top: 26px;
+    margin-top: 20px;
     font-size: 0.8rem;
-    opacity: 0.65;
+    opacity: 0.6;
 }
 </style>
 </head>
 
 <body>
+<canvas id="fireworks"></canvas>
+
 <div class="container">
     <h1>New Year 2026</h1>
-    <p class="subtitle">A fresh start begins in</p>
+    <p class="subtitle">Celebration begins in your local time</p>
 
     <div class="timer" id="timer">
-        <div class="time-box">
-            <span id="days">0</span>
-            <small>DAYS</small>
-        </div>
-        <div class="time-box">
-            <span id="hours">0</span>
-            <small>HOURS</small>
-        </div>
-        <div class="time-box">
-            <span id="minutes">0</span>
-            <small>MINUTES</small>
-        </div>
-        <div class="time-box">
-            <span id="seconds">0</span>
-            <small>SECONDS</small>
-        </div>
+        <div class="box"><span id="d">0</span><small>DAYS</small></div>
+        <div class="box"><span id="h">0</span><small>HOURS</small></div>
+        <div class="box"><span id="m">0</span><small>MIN</small></div>
+        <div class="box"><span id="s">0</span><small>SEC</small></div>
     </div>
 
-    <!-- Amazing Features -->
+    <!-- REAL FEATURES -->
     <div class="features">
-        <div class="feature">
-            <h3>🎆 Live Countdown</h3>
-            <p>Accurate real-time countdown updated every second.</p>
-        </div>
-        <div class="feature">
-            <h3>🚀 Ultra Fast</h3>
-            <p>Optimized performance with zero page reloads.</p>
-        </div>
-        <div class="feature">
-            <h3>📱 Mobile Ready</h3>
-            <p>Looks perfect on phones, tablets, and desktops.</p>
-        </div>
-        <div class="feature">
-            <h3>🔒 Privacy First</h3>
-            <p>No tracking, no data storage, 100% safe.</p>
-        </div>
+        <button onclick="toggleTheme()">🌓 Theme</button>
+        <button onclick="toggleSound()">🔊 Sound</button>
+        <span>🌍 Auto Timezone</span>
     </div>
 
     <div class="share">
         <a class="fb" href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">Facebook</a>
-        <a class="tw" href="https://twitter.com/intent/tweet?text=Countdown%20to%20New%20Year%202026!&url=https://example.com" target="_blank">Twitter</a>
+        <a class="tw" href="https://twitter.com/intent/tweet?text=New%20Year%202026%20Countdown!&url=https://example.com" target="_blank">Twitter</a>
         <a class="in" href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com" target="_blank">LinkedIn</a>
         <a class="wa" href="#" onclick="shareWhatsApp()">WhatsApp</a>
     </div>
 
-    <footer>
-        © 2026 Countdown • Designed for celebration
-    </footer>
+    <footer>© 2026 Countdown • Premium Experience</footer>
 </div>
 
 <script>
+let soundOn = true;
+const pop = new Audio("https://www.soundjay.com/misc/sounds/firework-pop-1.mp3");
+
 function updateCountdown() {
     const target = new Date("January 1, 2026 00:00:00").getTime();
     const now = new Date().getTime();
@@ -203,25 +170,45 @@ function updateCountdown() {
 
     if (diff <= 0) {
         document.getElementById("timer").innerHTML =
-            "<h2 style='grid-column:1/-1'>🎉 Happy New Year 2026!</h2>";
+            "<h2>🎉 Happy New Year 2026!</h2>";
+        startFireworks();
+        if (soundOn) pop.play();
         return;
     }
 
-    document.getElementById("days").innerText =
-        Math.floor(diff / (1000 * 60 * 60 * 24));
-    document.getElementById("hours").innerText =
-        Math.floor((diff / (1000 * 60 * 60)) % 24);
-    document.getElementById("minutes").innerText =
-        Math.floor((diff / (1000 * 60)) % 60);
-    document.getElementById("seconds").innerText =
-        Math.floor((diff / 1000) % 60);
+    d.innerText = Math.floor(diff / (1000*60*60*24));
+    h.innerText = Math.floor((diff / (1000*60*60)) % 24);
+    m.innerText = Math.floor((diff / (1000*60)) % 60);
+    s.innerText = Math.floor((diff / 1000) % 60);
+}
+
+function toggleTheme() {
+    document.body.classList.toggle("light");
+}
+
+function toggleSound() {
+    soundOn = !soundOn;
+    alert(soundOn ? "Sound ON" : "Sound OFF");
 }
 
 function shareWhatsApp() {
-    const text = encodeURIComponent(
-        "🎉 Countdown to New Year 2026!\n\n" + window.location.href
-    );
-    window.open(`https://wa.me/?text=${text}`, "_blank");
+    const text = encodeURIComponent("🎉 New Year 2026 Countdown!\n" + location.href);
+    window.open("https://wa.me/?text=" + text);
+}
+
+/* Simple Fireworks */
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
+function startFireworks() {
+    setInterval(() => {
+        ctx.fillStyle = `hsl(${Math.random()*360},100%,60%)`;
+        ctx.beginPath();
+        ctx.arc(Math.random()*canvas.width, Math.random()*canvas.height, 3, 0, Math.PI*2);
+        ctx.fill();
+    }, 30);
 }
 
 updateCountdown();
