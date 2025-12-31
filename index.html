@@ -39,7 +39,6 @@ h1 {
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 10px;
-    letter-spacing: 0.5px;
 }
 
 .subtitle {
@@ -112,6 +111,7 @@ h1 {
 .fb { background: #1877F2; }
 .tw { background: #1DA1F2; }
 .in { background: #0077B5; }
+.wa { background: #25D366; }
 
 footer {
     margin-top: 25px;
@@ -126,7 +126,7 @@ footer {
     <h1>New Year 2026</h1>
     <p class="subtitle">Countdown to a brand new beginning</p>
 
-    <div class="timer">
+    <div class="timer" id="timer">
         <div class="time-box">
             <span id="days">0</span>
             <small>DAYS</small>
@@ -146,13 +146,14 @@ footer {
     </div>
 
     <div class="message-area">
-        <textarea rows="3" placeholder="Write your New Year message..."></textarea>
+        <textarea id="message" rows="3" placeholder="Write your New Year message..."></textarea>
     </div>
 
     <div class="share">
-        <a class="fb" href="#">Facebook</a>
-        <a class="tw" href="#">Twitter</a>
-        <a class="in" href="#">LinkedIn</a>
+        <a class="fb" href="https://www.facebook.com/sharer/sharer.php?u=https://example.com" target="_blank">Facebook</a>
+        <a class="tw" href="https://twitter.com/intent/tweet?text=Countdown%20to%20New%20Year%202026!&url=https://example.com" target="_blank">Twitter</a>
+        <a class="in" href="https://www.linkedin.com/sharing/share-offsite/?url=https://example.com" target="_blank">LinkedIn</a>
+        <a class="wa" href="#" onclick="shareWhatsApp()">WhatsApp</a>
     </div>
 
     <footer>
@@ -167,20 +168,30 @@ function updateCountdown() {
     const diff = target - now;
 
     if (diff <= 0) {
-        document.querySelector(".timer").innerHTML =
+        document.getElementById("timer").innerHTML =
             "<h2 style='grid-column:1/-1'>🎉 Happy New Year 2026!</h2>";
         return;
     }
 
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const seconds = Math.floor((diff / 1000) % 60);
+    document.getElementById("days").innerText =
+        Math.floor(diff / (1000 * 60 * 60 * 24));
+    document.getElementById("hours").innerText =
+        Math.floor((diff / (1000 * 60 * 60)) % 24);
+    document.getElementById("minutes").innerText =
+        Math.floor((diff / (1000 * 60)) % 60);
+    document.getElementById("seconds").innerText =
+        Math.floor((diff / 1000) % 60);
+}
 
-    document.getElementById("days").innerText = days;
-    document.getElementById("hours").innerText = hours;
-    document.getElementById("minutes").innerText = minutes;
-    document.getElementById("seconds").innerText = seconds;
+function shareWhatsApp() {
+    const message =
+        document.getElementById("message").value ||
+        "🎉 Countdown to New Year 2026!";
+
+    const url = window.location.href;
+    const text = encodeURIComponent(`${message}\n\n${url}`);
+
+    window.open(`https://wa.me/?text=${text}`, "_blank");
 }
 
 updateCountdown();
