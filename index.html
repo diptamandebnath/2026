@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Year 2026 Countdown</title>
+    <title>New Year 2026 Countdown Timer</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -19,32 +19,17 @@
             margin-bottom: 20px;
             text-shadow: 0 0 10px #ffd700;
         }
-        .countdown {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-        }
-        .count-item {
-            font-size: 1.5em;
-            padding: 10px;
+        .timer {
+            font-size: 4em;
+            padding: 20px;
             background: rgba(255, 215, 0, 0.2);
             border-radius: 10px;
-            animation: tick 1s infinite alternate;
+            display: inline-block;
+            animation: pulse 1s infinite alternate;
         }
-        @keyframes tick {
+        @keyframes pulse {
             0% { transform: scale(1); }
-            100% { transform: scale(1.05); }
-        }
-        .custom-message {
-            font-size: 2em;
-            margin-top: 30px;
-            color: #ffd700;
-            animation: fadeIn 2s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            100% { transform: scale(1.02); }
         }
         footer {
             margin-top: 50px;
@@ -54,20 +39,30 @@
     </style>
 </head>
 <body>
-    <h1>Countdown to New Year 2026 in Hours!</h1>
-    <div class="countdown">
-        <div class="count-item">10 hours... Get ready for fresh starts and new adventures in 2026!</div>
-        <div class="count-item">9 hours... May your year ahead be filled with joy and success.</div>
-        <div class="count-item">8 hours... Cheers to leaving 2025 behind and embracing the future.</div>
-        <div class="count-item">7 hours... Wishing you health, happiness, and prosperity in 2026.</div>
-        <div class="count-item">6 hours... Let's count down to a brighter tomorrow together!</div>
-        <div class="count-item">5 hours... Dreams to chase, goals to achieve, and memories to make.</div>
-        <div class="count-item">4 hours... Gratitude for the past, excitement for the future.</div>
-        <div class="count-item">3 hours... One step closer to ringing in 2026!</div>
-        <div class="count-item">2 hours... Get ready for fireworks, fun, and fabulous times.</div>
-        <div class="count-item">1 hour... Happy New Year 2026! 🎉 Here's to you and all the magic it brings! 🥂</div>
-    </div>
-    <div class="custom-message">May 2026 bring you endless opportunities, love, and laughter. Cheers to a fantastic year ahead!</div>
-    <footer>* This is a static countdown. For a real-time timer, add JavaScript!</footer>
+    <h1>Countdown to New Year 2026</h1>
+    <div class="timer" id="timer">Calculating...</div>
+    <footer>* Timer updates every second. Refresh if needed!</footer>
+
+    <script>
+        function updateTimer() {
+            const now = new Date();
+            const newYear = new Date('January 1, 2026 00:00:00');
+            const diff = newYear - now;
+
+            if (diff <= 0) {
+                document.getElementById('timer').innerText = 'Happy New Year 2026!';
+                return;
+            }
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').innerText = `${hours} hours, ${minutes} minutes, ${seconds} seconds`;
+        }
+
+        updateTimer();
+        setInterval(updateTimer, 1000);
+    </script>
 </body>
 </html>
